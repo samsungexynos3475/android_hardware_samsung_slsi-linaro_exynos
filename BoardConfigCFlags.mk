@@ -125,6 +125,10 @@ ifeq ($(BOARD_USES_VPP_V2), true)
 	LOCAL_CFLAGS += -DUSES_VPP_V2
 endif
 
+ifeq ($(TARGET_SOC), exynos3475)
+	LOCAL_CFLAGS += -DUSES_LEGACY_CAMERA
+endif
+
 ifeq ($(TARGET_SOC), exynos8890)
 	LOCAL_CFLAGS += -DUSES_DECON_AFBC_DECODER
 endif
