@@ -49,8 +49,7 @@ LOCAL_SRC_FILES := 	\
 	framebuffer.cpp \
 	mapper.cpp
 
-#LOCAL_MODULE := gralloc.$(TARGET_SOC)
-LOCAL_MODULE := gralloc.$(TARGET_BOARD_PLATFORM)
+LOCAL_MODULE := gralloc.$(TARGET_BOOTLOADER_BOARD_NAME)
 LOCAL_PROPRIETARY_MODULE := true
 
 LOCAL_CFLAGS += -DLOG_TAG=\"gralloc\" -Wno-missing-field-initializers -DMALI_AFBC_GRALLOC=$(MALI_AFBC_GRALLOC)
