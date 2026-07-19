@@ -131,7 +131,7 @@ static int dpram_send_binary(struct dpram_boot_frame *bf, struct cmc_args *args,
 		err = write(args->boot_fd, bf, sizeof(struct dpram_boot_frame));
 		if (err < 0) {
 			cbd_log("boot frame write fail (err %d)\n", err);
-			cbd_log("frame debug req=%x, res=%x, len=%ld\n",
+			cbd_log("frame debug req=%x, res=%x, len=%zd\n",
 			bf->req, bf->res, bf->len);
 			goto exit;
 		}
@@ -169,7 +169,7 @@ static int prepare_image(int fd, struct dpram_boot_img *img, struct cp_imgmap *c
 
 	err = 0;
 
-	cbd_log("Load bin %s, img size %ld\n", cp_bin->name, img->size);
+	cbd_log("Load bin %s, img size %lu\n", cp_bin->name, img->size);
 	print_data((char *)img->addr, 16);
 
 exit:
@@ -199,7 +199,7 @@ static int dpram_download_main(struct cmc_args *args)
 	/* Alloc boot frame */
 	bf = (struct dpram_boot_frame *)malloc(sizeof(struct dpram_boot_frame));
 	if (!bf) {
-		cbd_log("Binary buf alloc fail size = %ld\n",
+		cbd_log("Binary buf alloc fail size = %zd\n",
 			sizeof(struct dpram_boot_frame));
 		err = -ENOMEM;
 		goto exit;
@@ -304,7 +304,7 @@ static int dpram_download_main(struct cmc_args *args)
 		err = write(boot_fd, bf, sizeof(struct dpram_boot_frame));
 		if (err < 0) {
 			cbd_log("Send TOC fail (err %d)\n", err);
-			cbd_log("Send TOC fail (req %x, res %x, len %ld)\n",
+			cbd_log("Send TOC fail (req %x, res %x, len %zd)\n",
 				bf->req, bf->res, bf->len);
 			goto exit;
 		}
@@ -493,7 +493,7 @@ static int dpram_download_boot(struct cmc_args *args, enum cp_boot_mode boot_mod
 		goto exit;
 	}
 	if (!img.size) {
-		cbd_log("Fail to malloc(size: %ld)\n", img.size);
+		cbd_log("Fail to malloc(size: %lu)\n", img.size);
 		goto exit;
 	}
 

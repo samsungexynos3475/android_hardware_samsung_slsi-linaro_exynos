@@ -95,7 +95,7 @@ static int dpram_send_wait_cmd(struct dpram_boot_frame *bf, int boot_fd,
 	err = write(boot_fd, bf, sizeof(struct dpram_boot_frame));
 	if (err < 0) {
 		cbd_log("boot frame write fail (err %d)\n", err);
-		cbd_log("frame debug req=%08x, res=%08x, len=%ld\n", req, res, bf->len);
+		cbd_log("frame debug req=%08x, res=%08x, len=%zd\n", req, res, bf->len);
 		goto exit;
 	}
 exit:
@@ -244,7 +244,7 @@ static int dpram_xmit_bin(struct dpram_boot_frame *bf,
 		err = write(boot_fd, bf, sizeof(struct dpram_boot_frame));
 		if (err < 0) {
 			cbd_log("boot frame write fail err = %d\n", err);
-		/*	cbd_log("frame debug req=%x, res=%x, len=%ld\n",
+		/*	cbd_log("frame debug req=%x, res=%x, len=%zd\n",
 			bf->req, bf->res. bf->len);*/
 			goto exit;
 		}
@@ -393,7 +393,7 @@ static int dpram_xmit_main(struct via_args *args)
 	/* Alloc boot frame */
 	bf = (struct dpram_boot_frame *)malloc(sizeof(struct dpram_boot_frame));
 	if (!bf) {
-		cbd_log("Binary buf alloc fail size = %ld\n",
+		cbd_log("Binary buf alloc fail size = %zu\n",
 			sizeof(struct dpram_boot_frame));
 		err = -ENOMEM;
 		goto exit;

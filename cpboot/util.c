@@ -238,7 +238,7 @@ static void save_ipc_log(FILE *fp, struct mif_ipc_block *block)
 	fprintf(fp, "[%5lu.%06lu] %s [%lu] %s\n",
 		(unsigned long)(block->time / 1000000000u),
 		(unsigned long)((block->time % 1000000000u) / 1000),
-		prefix[block->id - 1], block->len, hex_buf);
+		prefix[block->id - 1], (unsigned long)block->len, hex_buf);
 }
 
 static void save_irq_log(FILE *fp, struct mif_irq_block *block)
@@ -329,7 +329,7 @@ static int save_mif_dump(char *name)
 		fclose(fp);
 		return -EFAULT;
 	} else {
-		cbd_log("[MIF] Total size = %ld\n", arg);
+		cbd_log("[MIF] Total size = %lu\n", arg);
 	}
 
 	FD_ZERO(&reads);
@@ -511,14 +511,14 @@ int create_empty_nv(char *path, size_t size)
 	}
 
 	if (!size) {
-		cbd_log("ERR! wrong size(%ld)\n", size);
+		cbd_log("ERR! wrong size(%lu)\n", (unsigned long)size);
 		ret = -EFAULT;
 		goto exit;
 	}
 
 	nv_data = (char *)malloc(size);
 	if (!nv_data) {
-		cbd_log("ERR! malloc(%ld) fail\n", size);
+		cbd_log("ERR! malloc(%lu) fail\n", (unsigned long)size);
 		ret = -ENOMEM;
 		goto exit;
 	}

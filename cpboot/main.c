@@ -477,8 +477,8 @@ static int check_log_directory(char *path)
 		return err;
 	}
 	fsize_mb = (buf.f_bfree / 1024) * (buf.f_bsize / 1024);
-	cbd_log("Block size: %lu, Free Block: %" PRIu64 ", Free Size: %ld MB\n",
-		buf.f_bsize, buf.f_bfree, fsize_mb);
+	cbd_log("Block size: %lu, Free Block: %llu, Free Size: %ld MB\n",
+		(unsigned long)buf.f_bsize, (unsigned long long)buf.f_bfree, fsize_mb);
 
 	cbd_log("%s: freespace %ld / %d MB\n", path, fsize_mb, LOG_LIMIT_SIZE_MB);
 

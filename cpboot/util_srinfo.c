@@ -106,8 +106,8 @@ static int open_srinfo_file(char *surfix)
 	}
 	ret = fd;
 
-	cbd_log("srinfo log size : %lu(0x%lx/0x%x)\n",
-			sb.st_size, sb.st_size, SRINFO_MAX_SIZE);
+	cbd_log("srinfo log size : %llu(0x%llx/0x%x)\n",
+			(unsigned long long)sb.st_size, (unsigned long long)sb.st_size, SRINFO_MAX_SIZE);
 
 	/* file size limit */
 	if (sb.st_size > SRINFO_MAX_SIZE) {
