@@ -103,29 +103,13 @@ struct private_handle_t {
 	int         magic;
 	int         flags;
 	int         size;
-	int         size1;
-	int         size2;
 	int         offset;
 	int         format;
-	uint64_t    internal_format;
-	int         frameworkFormat;
 	int         width;
 	int         height;
 	int         stride;
 	int         vstride;
-	int         is_compressible;
-	int         compressed_out;
-	int         prefer_compression;
-
-	int         lock_usage;
-	int         lock_offset;
-	int         lock_len;
-
-	mali_gralloc_yuv_info     yuv_info;
-	int     PRIVATE_1;
-	int     PRIVATE_2;
-	int     PRIVATE_3;
-	int     PRIVATE_4;
+	int         frameworkFormat;
 
 	ion_user_handle_t handle;
 	ion_user_handle_t handle1;
@@ -135,6 +119,21 @@ struct private_handle_t {
 	uint64_t base1 __attribute__((aligned(8)));
 	uint64_t base2 __attribute__((aligned(8)));
 
+	int         lock_usage;
+	int         lock_offset;
+	int         lock_len;
+
+	int         size1;
+	int         size2;
+	mali_gralloc_yuv_info yuv_info;
+	int         PRIVATE_1;
+	int         PRIVATE_2;
+
+	int         prefer_compression;
+	uint64_t    internal_format;
+	int         is_compressible;
+	int         compressed_out;
+
 #ifdef __cplusplus
 	static inline int sNumInts() {
 		return (((sizeof(private_handle_t) - sizeof(native_handle_t))/sizeof(int)) - sNumFds);
@@ -143,11 +142,7 @@ struct private_handle_t {
 	static const int sMagic = 0x3141592;
 
 	private_handle_t(int _fd, int _size, int _flags) :
-		fd(_fd), fd1(-1), fd2(-1), magic(sMagic), flags(_flags), size(_size), size1(0), size2(0),
-		offset(0), format(0), internal_format(0), frameworkFormat(0), width(0), height(0), stride(0),
-		vstride(0), is_compressible(0), compressed_out(0), prefer_compression(0),
-		lock_usage(0), lock_offset(0), lock_len(0),	yuv_info(MALI_YUV_NO_INFO), PRIVATE_1(0), PRIVATE_2(0), PRIVATE_3(0), PRIVATE_4(0),
-		handle(0), handle1(0), handle2(0), base(0), base1(0), base2(0)
+		fd(_fd), fd1(-1), fd2(-1), magic(sMagic), flags(_flags), size(_size), offset(0), format(0), width(0), height(0), stride(0), vstride(0), frameworkFormat(0), handle(0), handle1(0), handle2(0), base(0), base1(0), base2(0), lock_usage(0), lock_offset(0), lock_len(0), size1(0), size2(0), yuv_info(MALI_YUV_NO_INFO), PRIVATE_1(0), PRIVATE_2(0), prefer_compression(0), internal_format(0), is_compressible(0), compressed_out(0)
 	{
 		version = sizeof(native_handle);
 		numInts = sNumInts() + 2;
@@ -157,12 +152,7 @@ struct private_handle_t {
 	private_handle_t(int _fd, int _fd1, int _fd2, int _size, int _size1, int _size2,
 			int _flags, int _w, int _h, int _format, uint64_t _internal_format, int _frameworkFormat,
 			int _stride, int _vstride, int _is_compressible) :
-		fd(_fd), fd1(_fd1), fd2(_fd2), magic(sMagic), flags(_flags), size(_size), size1(_size1), size2(_size2),
-		offset(0), format(_format), internal_format(_internal_format), frameworkFormat(_frameworkFormat),
-		width(_w), height(_h), stride(_stride), vstride(_vstride),
-		is_compressible(_is_compressible), compressed_out(0), prefer_compression(0),
-		lock_usage(0), lock_offset(0), lock_len(0), yuv_info(MALI_YUV_NO_INFO), PRIVATE_1(0), PRIVATE_2(0), PRIVATE_3(0), PRIVATE_4(0),
-		handle(0), handle1(0), handle2(0), base(0), base1(0), base2(0)
+		fd(_fd), fd1(_fd1), fd2(_fd2), magic(sMagic), flags(_flags), size(_size), offset(0), format(_format), width(_w), height(_h), stride(_stride), vstride(_vstride), frameworkFormat(_frameworkFormat), handle(0), handle1(0), handle2(0), base(0), base1(0), base2(0), lock_usage(0), lock_offset(0), lock_len(0), size1(_size1), size2(_size2), yuv_info(MALI_YUV_NO_INFO), PRIVATE_1(0), PRIVATE_2(0), prefer_compression(0), internal_format(_internal_format), is_compressible(_is_compressible), compressed_out(0)
 	{
 		int FDNum = 0;
 		if(fd1 == -1 and fd2 == -1) FDNum = 2;
